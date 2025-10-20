@@ -1,0 +1,2 @@
+/* App-specific styles that don't conflict with Tailwind */
+@import "tailwindcss";
