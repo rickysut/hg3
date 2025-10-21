@@ -6,9 +6,9 @@ import Admin from './pages/Admin'
 
 function Navigation() {
   return (
-    <nav className="bg-gray-800 text-white p-4">
-      <div className="container mx-auto flex justify-center items-center">
-        <h1 className="text-xl font-bold">HG3 - JAM 11 - TANYA JAWAB</h1>
+    <nav className="p-4 text-white bg-gray-800">
+      <div className="container flex items-center justify-center mx-auto">
+        <h1 className="text-xl font-bold">* SUARA & SOLUSI *</h1>
       </div>
     </nav>
   )
@@ -18,9 +18,9 @@ export default function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
-        <div className="min-h-screen bg-gray-50">
-          <Navigation />
+        <div className="h-screen bg-gray-50">
           <main>
+            <Navigation />
             <Routes>
               <Route path="/" element={<Ask />} />
               <Route path="/display" element={<Display />} />

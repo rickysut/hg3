@@ -45,6 +45,35 @@ export default function Admin() {
         }
     }
 
+    async function deleteQuestion(id: string) {
+        if (loading) return
+        
+        // Add confirmation dialog
+        if (!window.confirm('Apakah Anda yakin ingin menghapus pertanyaan ini?')) {
+            return
+        }
+        
+        try {
+            setLoading(true)
+            
+            const { error } = await supabase
+                .from('questions')
+                .delete()
+                .eq('id', id)
+                
+            if (error) {
+                console.error('Error deleting question:', error)
+                return
+            }
+            
+            fetchQuestions()
+        } catch (error) {
+            console.error('Unexpected error in deleteQuestion:', error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <div className="p-6 pt-20">
             <h1 className="text-2xl font-bold mb-4">Moderator Panel</h1>
@@ -78,13 +107,29 @@ export default function Admin() {
                             <td className="p-2">{q.name || '-'}</td>
                             <td className="p-2 text-center">{q.status}</td>
                             <td className="p-2 text-center">
-                                <button
-                                    onClick={() => setActive(q.id)}
-                                    disabled={loading}
-                                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed"
-                                >
-                                    {loading ? 'Loading...' : 'Show'}
-                                </button>
+                                <div className="flex gap-2 justify-center">
+                                    <button
+                                        onClick={() => setActive(q.id)}
+                                        disabled={loading}
+                                        className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed"
+                                        title="Tampilkan pertanyaan"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                            <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        onClick={() => deleteQuestion(q.id)}
+                                        disabled={loading}
+                                        className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition-colors disabled:bg-red-300 disabled:cursor-not-allowed"
+                                        title="Hapus pertanyaan"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     ))}

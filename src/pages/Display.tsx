@@ -14,27 +14,26 @@ export default function Display() {
     }
 
     return (
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-2 py-4 pt-5">
-            <div className="w-full ">
-                <div className="bg-white rounded-2xl shadow-2xl overflow-hidden ">
-                    <div className="bg-gradient-to-r from-blue-700 to-indigo-900 p-2 text-center">
-                        {/* <h1 className="text-2xl font-bold text-white mb-2">Pertanyaan</h1> */}
-                        <p className="text-blue-100 text-2xl">Pertanyaan dari {question?.name ?? '-'}</p>
-                    </div>
-                    
-                    <div className="p-6 space-y-5">
-                        <div>
-                            <div className="w-full px-4 py-3 text-5xl border border-gray-300 rounded-lg bg-gray-50 min-h-[100px] whitespace-pre-wrap">
-                                {question?.question || "Tidak ada pertanyaan aktif"}
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
+        <div className="h-screen w-full bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col" style={{ height: '100dvh', maxHeight: '100dvh', overflow: 'hidden' }}>
+            <div className="flex flex-col" style={{ height: '90vh' }}>
+                <div className="flex-1 min-h-0 p-8">
+                    <textarea
+                        className="w-full h-full p-8 text-4xl font-medium text-white bg-gray-700 bg-opacity-80 rounded-lg resize-none focus:outline-none overflow-y-auto"
+                        value={question?.question || "Tidak ada data aktif"}
+                        readOnly
+                        placeholder="Pertanyaan akan muncul di sini..."
+                        style={{ boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' }}
+                    />
                 </div>
-                
-                
+                {question?.name && (
+                    <div className="p-8 pt-0">
+                        <p className="text-2xl font-semibold text-blue-800">
+                            Dari {question.name}
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     )
 }
+
