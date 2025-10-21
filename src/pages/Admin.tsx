@@ -94,16 +94,20 @@ export default function Admin() {
             <table className="w-full border table-fixed">
                 <thead>
                     <tr className="bg-gray-200">
-                        <th className="p-2">Question</th>
-                        <th className="p-2 w-24">Name</th>
+                        <th className="p-2">Jawaban 1</th>
+                        <th className="p-2">Jawaban 2</th>
+                        <th className="p-2">Jawaban 3</th>
+                        <th className="p-2 w-24">Nama</th>
                         <th className="p-2 w-24 text-center">Status</th>
-                        <th className="p-2 w-24 text-center">Action</th>
+                        <th className="p-2 w-24 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     {(questions || []).map((q) => (
                         <tr key={q.id} className="border-t">
-                            <td className="p-2">{q.question}</td>
+                            <td className="p-2">{q.answer_1}</td>
+                            <td className="p-2">{q.answer_2}</td>
+                            <td className="p-2">{q.answer_3}</td>
                             <td className="p-2">{q.name || '-'}</td>
                             <td className="p-2 text-center">{q.status}</td>
                             <td className="p-2 text-center">
